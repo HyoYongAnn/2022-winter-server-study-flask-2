@@ -11,13 +11,12 @@ class UserManagement(Resource):
         database = Database()
         id = request.args.get('id')
         password = request.args.get('password')
-        newSQL = "SELECT * FROM Hyoyong.user WHERE id = '" + id + "' OR pw = '" + password + "';"
+        newSQL = "SELECT * FROM Hyoyong.user WHERE id = '" + id + "';"
         data = database.execute_one(newSQL)
         database.commit()
         if data is None:
             return make_response(jsonify({"messege": "해당 유저가 존재하지 않음"}),400)
-
-        if data['pw'] != password or data['id'] != id:
+        if data['pw'] != password:
             return make_response(jsonify({"messege": "아이디나 비밀번호 불일치"}),400)
 
 
