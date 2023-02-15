@@ -15,15 +15,15 @@ class UserManagement(Resource):
         data = database.execute_one(newSQL)
         database.commit()
         if data is None:
-            return make_response(jsonify({"messege": "해당 유저가 존재하지 않음"}),400)
+            return "해당 유저가 존재하지 않음"
         if data['pw'] != password:
-            return make_response(jsonify({"messege": "아이디나 비밀번호 불일치"}),400)
+            return "아이디나 비밀번호 불일치"
 
 
 
 
         database.close()
-        return {"nickname" : data['nickname']}
+        return "접속 성공"
 
     def post(self):
         # POST method 구현 부분
